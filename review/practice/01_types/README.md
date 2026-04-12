@@ -16,6 +16,7 @@ C言語の型・変数に関するクイックリファレンス。
 7. [const](#const)
 8. [変数の初期化ルール](#変数の初期化ルール)
 9. [printf フォーマット指定子](#printf-フォーマット指定子)
+10. [まとめ：型と変数チートシート](#まとめ型と変数チートシート)
 
 ---
 
@@ -233,4 +234,64 @@ printf("%-5d|\n", 42);    // 42   |（左寄せ、幅5）
 printf("%05d\n",  42);    // 00042 （ゼロ埋め）
 printf("%.3f\n",  3.14159); // 3.142（小数点以下3桁）
 printf("%8.2f\n", 3.14159); //     3.14（幅8、小数点以下2桁）
+```
+
+---
+
+## まとめ：型と変数チートシート
+
+```c
+// --- ヘッダー ---
+#include <stdint.h>   // 固定幅整数型
+#include <stdbool.h>  // bool
+#include <stddef.h>   // size_t, ptrdiff_t, NULL
+#include <limits.h>   // INT_MAX など
+
+// --- 基本型（サイズは環境依存） ---
+char c = 'A';
+int  i = 42;
+double d = 3.14;
+
+// --- 固定幅整数型（サイズ保証あり） ---
+uint8_t  u8  = 255;
+int32_t  i32 = -100;
+uint64_t u64 = 0xDEADBEEFULL;
+
+// --- size_t / ptrdiff_t ---
+size_t    len  = sizeof(arr) / sizeof(arr[0]); // %zu
+ptrdiff_t diff = ptr2 - ptr1;                  // %td
+
+// --- bool ---
+bool flag = true;   // 内部は 1
+bool zero = false;  // 内部は 0
+// printf: %d を使う（%b は C23以降）
+
+// --- const ---
+const int MAX = 100;        // 値を変更不可
+const int *cp = &n;         // 指す先を変更不可（ポインタは可）
+int *const pc = &n;         // ポインタを変更不可（指す先は可）
+const int *const cpc = &n;  // 両方変更不可
+
+// --- 初期化ルール ---
+// グローバル・static → 自動的に 0
+// ローカル変数      → 必ず明示的に初期化する（ゴミ値に注意）
+
+// --- printf 主要フォーマット指定子 ---
+// %d   int              符号付き10進数
+// %u   unsigned int     符号なし10進数
+// %lld long long
+// %llu unsigned long long
+// %zu  size_t
+// %td  ptrdiff_t
+// %f   double           小数表記
+// %e   double           指数表記
+// %g   double           短い方を自動選択
+// %c   char
+// %s   char*
+// %p   void*            アドレス（16進数）
+
+// --- 暗黙の整数昇格（落とし穴） ---
+// signed と unsigned を混在させると signed が unsigned に変換される
+// → 常に同じ型どうしで比較する
+// → -Wall フラグで警告を有効にする
 ```
