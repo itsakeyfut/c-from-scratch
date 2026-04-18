@@ -22,8 +22,7 @@
 src/
   str.h        // 型定義・関数宣言・マクロ
   str.c        // 実装
-test/
-  test_str.c   // テスト
+  main.c       // デモ
 ```
 
 ---
