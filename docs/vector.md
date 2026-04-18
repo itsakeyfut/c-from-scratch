@@ -20,8 +20,7 @@
 src/
   vec.h        // 型定義・関数宣言・インラインマクロ
   vec.c        // 実装
-test/
-  test_vec.c   // テスト
+  main.c       // デモ
 ```
 
 ---
