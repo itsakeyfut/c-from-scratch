@@ -1,17 +1,17 @@
-// mylib.c — ヘッダに対応する実装ファイル
+// mylib.c — Implementation file corresponding to mylib.h
 //
-// ルール:
-// ① 必ず対応するヘッダを最初にインクルードする（自己整合性のチェック）
-// ② 外部に公開しない関数は static をつける
-// ③ グローバル変数は極力使わない
+// Rules:
+// 1. Always include the corresponding header first (checks self-consistency)
+// 2. Mark functions not exposed to other files as static
+// 3. Avoid global variables as much as possible
 
-#include "mylib.h"   // 対応ヘッダを先頭で
+#include "mylib.h"   // include the corresponding header first
 #include <stdio.h>
 #include <math.h>    // sqrt
 
 // =========================================================
-// static（非公開）ヘルパー関数
-// mylib.h には書かない → このファイル外から呼べない
+// static (private) helper function
+// Not declared in mylib.h -> cannot be called from outside this file
 // =========================================================
 static int clamp(int val, int min, int max) {
     if (val < min) return min;
@@ -20,7 +20,7 @@ static int clamp(int val, int min, int max) {
 }
 
 // =========================================================
-// 公開関数の実装
+// Public function implementations
 // =========================================================
 Point point_new(int x, int y) {
     return (Point){ clamp(x, -POINT_MAX, POINT_MAX),

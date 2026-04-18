@@ -1,15 +1,12 @@
-// 10_headers/main.c — ヘッダファイル分割のデモ
-// ビルド: clang -std=c11 -Wall -Wextra -o 10_headers main.c mylib.c && ./10_headers
-//         ※ Windows では -lm 不要（Linux/macOS では -lm が必要）
+// Header file splitting demo
 
 #include <stdio.h>
-#include "mylib.h"   // ダブルクォートで相対パス（<> はシステムヘッダ用）
+#include "mylib.h" // double quotes for relative path (<> is for system headers)
 
 int main(void) {
+    printf("=== Header Splitting Demo ===\n");
 
-    printf("=== ヘッダ分割のデモ ===\n");
-
-    // mylib.h で定義した型・関数を使う
+    // Use the types and functions defined in mylib.h
     Point p1 = point_new(3, 4);
     Point p2 = point_new(6, 8);
 
@@ -28,12 +25,12 @@ int main(void) {
     printf("MYLIB_VERSION = %d\n", MYLIB_VERSION);
 
     // =========================================================
-    // インクルードガードの意味
+    // How include guards work
     // =========================================================
-    // mylib.h を 2 回 include してもエラーにならない
-    // #ifndef MYLIB_H が 2 回目のインクルードをスキップする
-    #include "mylib.h"  // 2 回目: 何も起きない（ガードが防ぐ）
+    // Including mylib.h a second time does not cause an error.
+    // #ifndef MYLIB_H skips the second inclusion.
+    #include "mylib.h"  // 2nd time: nothing happens (the guard prevents it)
 
-    printf("\n完了\n");
+    printf("\ndone\n");
     return 0;
 }
